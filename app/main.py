@@ -13,5 +13,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.get("/")
+async def root():
+    return {"message": "FastAPI backend is running!"}
 # Include routers
 app.include_router(race_analysis.router)
