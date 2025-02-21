@@ -1,32 +1,15 @@
-from fastapi import FastAPI, Response, Query
-from fastapi.middleware.cors import CORSMiddleware
-import matplotlib
-matplotlib.use('Agg')  # Use a non-GUI backend
-import matplotlib.pyplot as plt
+import fastf1
 import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')  # to prevent NSException 
+import io
 from matplotlib import colormaps
 from matplotlib.collections import LineCollection
-import fastf1
-import io
+from fastapi import Response
 
-app = FastAPI()
-
-# Enable CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React frontend URL
-    allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allow all headers
-)
-
-@app.get("/fastest-lap-gear-shifts-plot")
-def gear_shift_plot(
-    year: int = Query(..., description="Year of the race"),
-    round_no: str = Query(..., description="Round number"),
-    session_type: str = Query(..., description="Session type (FP1, FP2, FP3, Q, R)")
-):
-    try:
+def generate_gear_shift_plot(year: int, round_no: str, session_type: str):
+   try:
         # Load session data
         session = fastf1.get_session(year, round_no, session_type)
         session.load()
@@ -70,6 +53,9 @@ def gear_shift_plot(
         img_bytes.seek(0)
 
         return Response(content=img_bytes.getvalue(), media_type="image/png")
+   
+   except Exception as e:
+    return {"error": str(e)}
+    
 
-    except Exception as e:
-        return {"error": str(e)}
+
