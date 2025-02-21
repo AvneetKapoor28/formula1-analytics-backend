@@ -7,7 +7,8 @@ dist
 build
 __pycache__
 *.pyc
-/pycache/*
+**/__pycache__/
+
 
 # FastAPI
 .env
