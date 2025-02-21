@@ -13,7 +13,7 @@ def generate_team_pace_comparison_plot(year: int, round_no: str, session_type: s
 
         # Load the race session
         race = fastf1.get_session(year, int(round_no), session_type)
-        race.load()
+        race.load(telemetry=False, weather=False)
         laps = race.laps.pick_quicklaps()
 
         # Convert lap times to seconds for Seaborn

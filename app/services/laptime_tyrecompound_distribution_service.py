@@ -12,7 +12,7 @@ def generate_laptime_distribution_plot(year: int, round_no: str, session_type: s
     try:
         # Load the race session
         race = fastf1.get_session(year, int(round_no), session_type)
-        race.load()
+        race.load(telemetry=False, weather=False)
 
         # Get point finishers and their lap times
         point_finishers = race.drivers[:10]

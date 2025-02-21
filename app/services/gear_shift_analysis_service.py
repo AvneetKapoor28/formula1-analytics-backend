@@ -13,7 +13,7 @@ def generate_gear_shift_plot(year: int, round_no: str, session_type: str):
         round_no = int(round_no)
         # Load session data
         session = fastf1.get_session(year, round_no, session_type)
-        session.load()
+        session.load(weather=False)
 
         # Get fastest lap telemetry
         lap = session.laps.pick_fastest()

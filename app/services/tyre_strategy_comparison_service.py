@@ -8,7 +8,7 @@ def generate_tyre_strategy_plot(year: int, round_no: str, session_type: str):
     try:
         # Load the race session
         session = fastf1.get_session(year, int(round_no), session_type)
-        session.load()
+        session.load(telemetry=False, weather=False)
         laps = session.laps
 
         # Get driver abbreviations
