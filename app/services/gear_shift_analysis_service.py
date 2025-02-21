@@ -10,6 +10,7 @@ from fastapi import Response
 
 def generate_gear_shift_plot(year: int, round_no: str, session_type: str):
    try:
+        round_no = int(round_no)
         # Load session data
         session = fastf1.get_session(year, round_no, session_type)
         session.load()

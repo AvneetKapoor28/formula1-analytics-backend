@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Response, Query
-from app.services.race_analysis_service import generate_gear_shift_plot
+from app.services.gear_shift_analysis_service import generate_gear_shift_plot
+from app.services.team_pace_comparison_service import generate_team_pace_comparison_plot
+from app.services.tyre_strategy_comparison_service import generate_tyre_strategy_plot
 
-router = APIRouter(prefix="/lap-analysis", tags=["Lap Analysis"])
+router = APIRouter(prefix="/race-analysis", tags=["Race Analysis"])
 
 @router.get("/fastest-lap-gear-shifts-plot")
 def gear_shift_plot(
@@ -10,3 +12,20 @@ def gear_shift_plot(
     session_type: str = Query(..., description="Session type (FP1, FP2, FP3, Q, R)")
 ):
     return generate_gear_shift_plot(year, round_no, session_type)
+
+
+@router.get("/team-pace-comparison")
+def team_pace_comparison_plot(
+    year: int = Query(..., description="Year of the race"),
+    round_no: str = Query(..., description="Round number"),
+    session_type: str = Query(..., description="Session type (FP1, FP2, FP3, Q, R)")
+):
+    return generate_team_pace_comparison_plot(year, round_no, session_type)
+
+@router.get("/tyre-strategies")
+def tyre_strategy_plot(
+    year: int = Query(..., description="Year of the race"),
+    round_no: str = Query(..., description="Round number"),
+    session_type: str = Query(..., description="Session type (FP1, FP2, FP3, Q, R)")
+):
+    return generate_tyre_strategy_plot(year, round_no, session_type)
