@@ -53,7 +53,7 @@ def generate_tyre_strategy_plot(year: int, round_no: str, session_type: str):
 
         # Save figure to an in-memory file
         img_bytes = io.BytesIO()
-        plt.savefig(img_bytes, format="png", bbox_inches="tight")
+        plt.savefig(img_bytes, format="png", bbox_inches="tight", dpi=300)
         plt.close(fig)  # Free memory
         img_bytes.seek(0)
 
