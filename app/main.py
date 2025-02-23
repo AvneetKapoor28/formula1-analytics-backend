@@ -7,7 +7,7 @@ app = FastAPI()
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000","https://formula1-amber.vercel.app"],  
+    allow_origins=["http://localhost:3000","https://formula1-amber.vercel.app","https://www.formula1dashboard.xyz"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
